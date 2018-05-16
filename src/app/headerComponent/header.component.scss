@@ -1,0 +1,116 @@
+@import './../../colors.scss';
+
+.mainHeader {
+  position: fixed;
+  background: url('./../../assets/images/bg-transparent1.png');
+  background-position: center;
+  width: 100%;
+  height: 12vh;
+  padding: 3vh;
+  color: $white;
+  //Left Header Title CSS Begins
+  .leftComponent {
+    float: left;
+    height: 6vh;
+    line-height: 6vh;
+    h1 {
+      padding: 0;
+      margin: 0;
+    }
+  }
+  //Left Header Title CSS Ends
+
+  //Right Header Navigation CSS Begins
+  .rightComponent {
+    float: right;
+    height: 6vh;
+    line-height: 6vh;
+    nav {
+      @media only screen and (max-width: 768px) {
+        display: inline-block;
+      }
+      .navImage {
+        @media only screen and (max-width: 768px) {
+          display: inline-block;
+          div {
+            height: 6vh;
+            width: 6vh;
+          }
+          .openNav {
+            background: url('./../../assets/images/mobile-menu.png');
+            background-position: center;
+            background-repeat: no-repeat;
+          }
+          .closeNav {
+            background: url('./../../assets/images/mobile-close.png');
+            background-position: center;
+            background-repeat: no-repeat;
+          }
+        }
+        @media only screen and (min-width: 768px) {
+          display: none;
+        }
+      }
+      .navLinks {
+        @media only screen and (max-width: 768px) {
+          &.displayNav {
+            display: block;
+          }
+          display: none;
+          width: 20vH;
+          position: absolute;
+          right: 1vh;
+          font-size: 2.5vh;
+          font-weight: lighter;
+          background: $nav-background;
+          color: $white;
+          list-style: none;
+          padding: 0 10px;
+          margin: 0;
+          li {
+            width: 100%;
+            border-bottom: 1px solid $grey-border;
+          }
+        }
+        @media only screen and (min-width: 768px) {
+          padding: 0;
+          margin: 0;
+          .hover {
+            background: $nav-background;
+          }
+          .selected {
+            background: $black;
+          }
+          .mainLink {
+            float: left;
+            list-style: none;
+            width: 17vh;
+            line-height: 6vh;
+            padding: 0vh 2vh;
+            font-size: 18px;
+            text-align: center;
+            text-transform: uppercase;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            .subNavLinks {
+              padding: 0;
+              li {
+                font-size: 16px;
+                width: 13vh;
+                list-style: none;
+                border-top: 1px solid $grey-border;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                height: auto;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  //Right Header Navigation CSS Ends
+  .clearBoth{
+    clear: both;
+  }
+}

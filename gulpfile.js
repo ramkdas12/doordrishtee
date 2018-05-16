@@ -59,4 +59,4 @@ gulp.task('test', function (cb) {
 
 gulp.task('default', ['watch']);
 
-gulp.task('run', ['clean', 'buildJS', 'watch', 'serve']);
+gulp.task('run-dev', ['clean', 'buildJS', 'watch', 'serve']);
