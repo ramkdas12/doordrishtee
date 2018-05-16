@@ -5,12 +5,20 @@
     </h1>
   </div>
   <div class="rightComponent">
-    <nav>
-      <ul>
-        <li *ngFor="let link of links">
+    <nav id="navigation" (click)="showNav()">
+      <div class="navImage">
+        <div [ngClass]="openNav ? 'openNav' : 'closeNav'"></div>
+      </div>
+      <ul class="navLinks">
+        <li *ngFor="let link of links" (click)='route($event, links, link)' (mouseover)="link['openSub'] = true" class="mainLink" (mouseleave)="link['openSub'] = false" [ngClass]="[link['selected'] && !link['openSub'] ? 'selected' : '', link['openSub'] ? 'hover' : '']">
           <a>{{link.title}}</a>
-        </li>
+          <ul class="subNavLinks" *ngIf="link['subLinks'] && link['openSub']" (mouseleave)="link['openSub'] = false" (mouseover)="link['openSub'] = true">
+            <li *ngFor="let sub of link['subLinks']" (click)='route($event, links, link, sub)' [ngClass]="sub['selected'] ? 'selected' : ''">
+              <a>{{sub.title}}</a>
+            </li>
+          </ul>
       </ul>
     </nav>
   </div>
+  <div class="clearBoth"></div>
 </div>
