@@ -92,6 +92,10 @@
             text-transform: uppercase;
             text-overflow: ellipsis;
             overflow: hidden;
+            a {
+              text-decoration: none;
+              color: $white;
+            }
             .subNavLinks {
               padding: 0;
               li {

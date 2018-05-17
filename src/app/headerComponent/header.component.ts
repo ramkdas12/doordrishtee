@@ -10,15 +10,15 @@ export class HeaderComponent {
   links = [
     {
       'title': 'Home',
-      'link': ''
+      'link': '/home'
     },
     {
       'title': 'About',
-      'link': ''
+      'link': '/about'
     },
     {
       'title': 'Projects',
-      'link': '',
+      'link': '/projects',
       'subLinks': [
         {
           'title': 'Project 1',
@@ -32,7 +32,7 @@ export class HeaderComponent {
     },
     {
       'title': 'Blog',
-      'link': '',
+      'link': '/blogs',
       'subLinks': [
         {
           'title': 'Blog 1',
@@ -46,7 +46,7 @@ export class HeaderComponent {
     },
     {
       'title': 'Contact',
-      'link': ''
+      'link': '/contact'
     }
   ];
 
