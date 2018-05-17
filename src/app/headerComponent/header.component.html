@@ -1,4 +1,4 @@
-<div class="mainHeader">
+<header class="mainHeader">
   <div class="leftComponent">
     <h1>
       Doordrishtee
@@ -11,7 +11,7 @@
       </div>
       <ul class="navLinks">
         <li *ngFor="let link of links" (click)='route($event, links, link)' (mouseover)="link['openSub'] = true" class="mainLink" (mouseleave)="link['openSub'] = false" [ngClass]="[link['selected'] && !link['openSub'] ? 'selected' : '', link['openSub'] ? 'hover' : '']">
-          <a>{{link.title}}</a>
+          <a routerLink="{{link.link}}">{{link.title}}</a>
           <ul class="subNavLinks" *ngIf="link['subLinks'] && link['openSub']" (mouseleave)="link['openSub'] = false" (mouseover)="link['openSub'] = true">
             <li *ngFor="let sub of link['subLinks']" (click)='route($event, links, link, sub)' [ngClass]="sub['selected'] ? 'selected' : ''">
               <a>{{sub.title}}</a>
@@ -21,4 +21,4 @@
     </nav>
   </div>
   <div class="clearBoth"></div>
-</div>
+</header>
