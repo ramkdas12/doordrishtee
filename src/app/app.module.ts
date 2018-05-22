@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { HttpModule } from '@angular/http';
 import { DataService } from './data.service';
+import { HomeTopicsService } from './home-topics.service';
 
 import { HeaderComponent } from './headerComponent/header.component';
 import { SectionComponent } from './sectionComponent/section.component';
@@ -68,7 +69,8 @@ const appRoutes: Routes = [
     HttpModule
   ],
   providers: [
-    DataService
+    DataService,
+    HomeTopicsService
   ],
   bootstrap: [AppComponent]
 })
