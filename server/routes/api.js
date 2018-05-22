@@ -44,5 +44,23 @@ router.get('/users', (req, res) => {
   });
 });
 
+//Get Home topics 
+router.get('/getHomeTopics', (req, res) => {
+  connection((db) => {
+    const dbName = db.db('doordrishtee');
+    dbName.collection('homeTopics')
+      .find()
+      .toArray()
+      .then((users) => {
+        console.log(users);
+        response.data = users;
+        res.json(response);
+      })
+      .catch((err) => {
+        sendError(err, res);
+      });
+  });
+});
+
 //export
 module.exports = router;
