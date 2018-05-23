@@ -1,0 +1,307 @@
+@import './../../colors.scss';
+.home {
+  height: 88vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.spinner {
+  position: fixed;
+  top: 35vh;
+  width: 100vw;
+  text-align: center;
+  z-index: 200;
+  img {
+    height: 30vh;
+  }
+}
+
+.overlay {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0.4;
+  background: $white;
+}
+
+.topProject {
+  //background: url('./../../assets/images/backGround.jpg') no-repeat center center;
+  width: 100vw;
+  position: relative;
+  color: $white;
+  display: table;
+  border-top: 1px solid $grey-border;
+  @media only screen and (max-width: 767px) {
+    padding: 0;
+  }
+  @media only screen and (min-width: 768px) {
+    padding: 2vw;
+  }
+  .leftContent {
+    @media only screen and (max-width: 767px) {
+      float: none
+    }
+    @media only screen and (min-width: 768px) {
+      /* float: left; */
+      width: 50%;
+      display: table-cell;
+      vertical-align: middle;
+      /* margin-left: 12px; */
+    }
+  }
+  .rightContent {
+    @media only screen and (max-width: 767px) {
+      float: none;
+      padding: 5% 5%;
+    }
+    @media only screen and (min-width: 768px) {
+      /* float: left; */
+      width: 49%;
+      display: table-cell;
+      vertical-align: middle;
+      /* padding-left: 20px; */
+    }
+  }
+  h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    display: table-caption;
+    @media only screen and (max-width: 767px) {
+      margin-bottom: 25px;
+    }
+  }
+  img {
+    display: block;
+    @media only screen and (max-width: 767px) {
+      max-width: 100vw; //left: 0;
+    }
+    @media only screen and (min-width: 768px) {
+      max-width: 48vw;
+    }
+  }
+  .name {
+    /* float: right; */
+    font-size: 32px;
+    font-weight: normal;
+    line-height: 60px;
+    position: relative;
+    text-transform: uppercase;
+    /* width: 36vw; */
+    /* top: 5vh; */
+    padding: 0% 10%; //height: 33%;
+    @media only screen and (max-width: 767px) {
+      float: none;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      width: 100%;
+    }
+  }
+  .description {
+    /* float: right; */
+    font-size: 22px;
+    font-weight: normal;
+    line-height: 40px;
+    position: relative;
+    /* width: 36vw; */
+    /* top: 5vh; */
+    /* margin: 0 10%; */
+    padding: 0% 10%;
+    @media only screen and (max-width: 767px) {
+      float: none;
+      margin: 0; //padding: 30% 0 10%;
+      text-align: center;
+      width: 100%;
+      padding: 0;
+    }
+  }
+  .link {
+    // float: right;
+    font-size: 22px;
+    font-weight: normal;
+    line-height: 40px;
+    position: relative; // width: 36vw;
+    // top: 5vh;
+    margin: 0 10%;
+    @media only screen and (max-width: 767px) {
+      margin: 10px 0;
+      text-align: center;
+    }
+    a {
+      background: $black;
+      color: $white;
+      text-decoration: none;
+      width: 25%;
+      display: inline-block;
+      font-size: 20px;
+      /* padding: 0 15px; */
+      width: 30%;
+      text-align: center;
+      &:hover {
+        background: $nav-background;
+      }
+    }
+  }
+  .clearBoth {
+    clear: both;
+  }
+}
+
+.featuredProjects {
+  width: 100vw;
+  position: relative;
+  color: $white;
+  display: table;
+  border-top: 1px solid $grey-border;
+  @media only screen and (max-width: 767px) {
+    padding: 0;
+  }
+  @media only screen and (min-width: 768px) {
+    padding: 2vw;
+  }
+  h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    display: table-caption;
+    @media only screen and (max-width: 767px) {
+      margin-bottom: 25px;
+    }
+  }
+  .projects {
+    text-align: center;
+    .project {
+      display: inline-block;
+      width: 22%;
+      margin: 1%;
+      @media only screen and (max-width: 767px) {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+      a {
+        text-decoration: none;
+        color: $white;
+        font-size: 20px;
+      }
+      img {
+        width: 100%;
+        display: inline-block;
+        height: auto;
+      }
+      span {
+        top: -25%;
+        /* display: block; */
+        position: relative;
+      }
+    }
+  }
+}
+
+.latestBlogs {
+  width: 100vw;
+  position: relative;
+  color: $white;
+  display: table;
+  border-top: 1px solid $grey-border;
+  @media only screen and (max-width: 767px) {
+    padding: 0;
+  }
+  @media only screen and (min-width: 768px) {
+    padding: 2vw;
+  }
+  h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    display: table-caption;
+    @media only screen and (max-width: 767px) {
+      margin-bottom: 25px;
+    }
+  }
+  .blogs {
+    text-align: center;
+    @media only screen and (min-width: 768px) {
+      display: table-row;
+    }
+    .blog {
+      @media only screen and (max-width: 767px) {
+        float: none;
+        width: 100%;
+        padding: 20px 0;
+      }
+      @media only screen and (min-width: 768px) {
+        /* float: left; */
+        width: 50%;
+        display: table-cell;
+        vertical-align: middle;
+        padding: 1%;
+        height: 20vh; 
+        /* margin-left: 12px; */
+      }
+      .content {
+        width: 100%;
+        height: 100%;
+        .left {
+          @media only screen and (max-width: 767px) {
+            float: none;
+            width: 100%;
+          }
+          @media only screen and (min-width: 768px) {
+            float: left;
+            width: 35%;
+          }
+          img {
+            width: 100%;
+            height: auto;
+          }
+        }
+        .right {
+          @media only screen and (max-width: 767px) {
+            float: none;
+            width: 100%;
+          }
+          @media only screen and (min-width: 768px) {
+            float: left;
+            width: 60%;
+            margin-left: 5%;
+            height: 100%;
+          }
+          .head {
+            text-align: left;
+            @media only screen and (max-width: 767px) {}
+            @media only screen and (min-width: 768px) {
+              height: 60%;
+            }
+            .title {
+              font-size: 24px;
+            }
+            .dateCreated {
+              font-size: 20px;
+            }
+          }
+          .foot {
+            text-align: right;
+            @media only screen and (max-width: 767px) {}
+            @media only screen and (min-width: 768px) {
+              height: 40%;
+            }
+            a {
+              text-decoration: none;
+              color: $white;
+              font-size: 20px;
+              background: $black;
+              height: 40px;
+              display: inline-block;
+              /* padding: 5px 15px; */
+              text-align: center;
+              width: 40%;
+              line-height: 40px;
+              &:hover {
+                background: $nav-background;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

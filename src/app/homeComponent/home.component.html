@@ -1,3 +1,55 @@
-<p>
-  Home Component
-</p>
+<div class="home">
+  <div class="spinner" *ngIf='showSpinner'>
+    <img src='./../../assets/images/loading.gif'>
+  </div>
+  <div class="overlay" *ngIf='showSpinner'></div>
+  <div *ngIf='!showSpinner'>
+    <div class="topProject">
+      <h2>Top Project</h2>
+      <div class="leftContent">
+        <img [src]="topProject.imgSrc">
+      </div>
+      <div class="rightContent">
+        <div class="name">{{topProject.name}}</div>
+        <div class="description">{{topProject.description}}</div>
+        <div class="link">
+          <a routerLink="{{topProject.link}}">{{topProject.name}}</a>
+        </div>
+      </div>
+      <div class="clearBoth"></div>
+    </div>
+    <div class="featuredProjects">
+      <h2>Featured Projects</h2>
+      <div class="projects">
+        <div class="project" *ngFor="let project of featuredProjects">
+          <a routerLink="{{project.link}}">
+            <img [src]="project.imgSrc">
+            <span>{{project.title}}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="latestBlogs">
+      <h2>Latest Blogs</h2>
+      <div class="blogs">
+        <div class="blog" *ngFor="let blog of latestBlogs">
+          <div class="content">
+            <div class="left">
+              <img [src]="blog.imgSrc">
+            </div>
+            <div class="right">
+              <div class="head">
+                <div class="title">{{blog.title}}</div>
+                <div class="dateCreated">{{blog.dateCreated}}</div>
+              </div>
+              <div class="foot">
+                <a routerLink="blog.link">Read More</a>
+              </div>
+            </div>
+            <div class="clearBoth"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,12 +1,12 @@
 @import './../../colors.scss';
 
 .mainHeader {
-  position: fixed;
+  //position: fixed;
   background: url('./../../assets/images/bg-transparent1.png');
   background-position: center;
   width: 100%;
   height: 12vh;
-  padding: 3vh;
+  padding: 2vh;
   color: $white;
   //Left Header Title CSS Begins
   .leftComponent {
@@ -26,11 +26,11 @@
     height: 6vh;
     line-height: 6vh;
     nav {
-      @media only screen and (max-width: 768px) {
+      @media only screen and (max-width: 767px) {
         display: inline-block;
       }
       .navImage {
-        @media only screen and (max-width: 768px) {
+        @media only screen and (max-width: 767px) {
           display: inline-block;
           div {
             height: 6vh;
@@ -52,7 +52,7 @@
         }
       }
       .navLinks {
-        @media only screen and (max-width: 768px) {
+        @media only screen and (max-width: 767px) {
           &.displayNav {
             display: block;
           }
@@ -67,6 +67,7 @@
           list-style: none;
           padding: 0 10px;
           margin: 0;
+          z-index: 1;
           li {
             width: 100%;
             border-bottom: 1px solid $grey-border;
@@ -84,9 +85,9 @@
           .mainLink {
             float: left;
             list-style: none;
-            width: 17vh;
+            width: 14vw;
             line-height: 6vh;
-            padding: 0vh 2vh;
+            //padding: 0vh 2vh;
             font-size: 18px;
             text-align: center;
             text-transform: uppercase;
@@ -95,17 +96,24 @@
             a {
               text-decoration: none;
               color: $white;
+              width: 14vw;
+              display: inline-block;
             }
             .subNavLinks {
               padding: 0;
               li {
                 font-size: 16px;
-                width: 13vh;
+                //width: 13vh;
                 list-style: none;
                 border-top: 1px solid $grey-border;
                 text-overflow: ellipsis;
                 overflow: hidden;
                 height: auto;
+              }
+              a {
+                width: 13vh;
+                display: inline-block;
+                font-size: 15px;
               }
             }
           }
