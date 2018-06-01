@@ -47,6 +47,10 @@ export class HeaderComponent {
     {
       'title': 'Contact',
       'link': '/contact'
+    },
+    {
+      'title': 'Sign in',
+      'link': '/signin'
     }
   ];
 

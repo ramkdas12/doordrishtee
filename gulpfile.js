@@ -42,7 +42,7 @@ gulp.task('watch', function () {
 });
 
 gulp.task('serve', function (cb) {
-    exec('nodemon server.js', function (err, stdout, stderr) {
+    exec('node server.js', function (err, stdout, stderr) {
         console.log(stdout);
         console.log(stderr);
         cb(err);
