@@ -12,10 +12,12 @@
   .leftComponent {
     float: left;
     height: 6vh;
-    line-height: 6vh;
+    line-height: 5.5vh;
     h1 {
       padding: 0;
       margin: 0;
+      font-size: 26px;
+      color: $white;
     }
   }
   //Left Header Title CSS Ends
@@ -24,7 +26,7 @@
   .rightComponent {
     float: right;
     height: 6vh;
-    line-height: 6vh;
+    line-height: 5.5vh;
     nav {
       @media only screen and (max-width: 767px) {
         display: inline-block;
@@ -85,7 +87,7 @@
           .mainLink {
             float: left;
             list-style: none;
-            width: 14vw;
+            width: 12vw;
             line-height: 6vh;
             //padding: 0vh 2vh;
             font-size: 18px;
@@ -96,7 +98,7 @@
             a {
               text-decoration: none;
               color: $white;
-              width: 14vw;
+              width: 11vw;
               display: inline-block;
             }
             .subNavLinks {
