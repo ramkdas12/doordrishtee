@@ -1,0 +1,53 @@
+@import './../../colors.scss';
+
+header {
+  text-align: center;
+  margin-top: 50px;
+  h2 {
+    color: $white;
+  }
+}
+section {
+  .spinner {
+    position: fixed;
+    top: 35vh;
+    width: 100vw;
+    text-align: center;
+    z-index: 200;
+    img {
+      height: 30vh;
+    }
+  }
+  
+  .overlay {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    opacity: 0.4;
+    background: $white;
+  }
+  .login-form {
+    max-width: 400px;
+    @media only screen and (max-width: 767px) {
+      max-width: 300px;
+    }
+    margin: 50px auto;
+    .ant-form-item label{
+      color: $white;
+    }
+  }
+
+  .login-form-forgot {
+    float: right;
+  }
+
+  .login-form-button {
+    width: 100%;
+  }
+  a {
+    color: $white;
+  }
+  .ant-form-item-children {
+    color: $white;
+  }
+}
