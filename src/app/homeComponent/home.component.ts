@@ -1,26 +1,40 @@
 import { Component } from '@angular/core';
 
-import { HomeTopicsService } from './../home-topics.service';
+import { DataService } from './../data.service';
+import { error } from 'protractor';
 
 @Component({
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-  
+
   topProject = null;
   latestBlogs = null;
   featuredProjects = null;
+
   showSpinner = true;
-  constructor (private _homeService: HomeTopicsService) {
-    this._homeService.getHomeTopics()
-    .subscribe(res => {
-      console.log(res);
-      this.topProject = res[0]['topProject'];
-      this.latestBlogs = res[0]['latestBlogs'];
-      this.featuredProjects = res[0]['featuredProjects'];
-      this.showSpinner = false;
-    });
+  serviceError = false;
+
+  constructor(private _dataService: DataService) {
+    this._dataService.getData('getHomeTopics')
+      .subscribe(
+        success => {
+        if (success['status'] === 200 && success['data']) {
+          this.topProject = success['data'][0]['topProject'];
+          this.latestBlogs = success['data'][0]['latestBlogs'];
+          this.featuredProjects = success['data'][0]['featuredProjects'];
+          this.showSpinner = false;
+        } else {
+          this.showSpinner = false;
+          this.serviceError = true;
+        }
+        console.log(success);
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
 }

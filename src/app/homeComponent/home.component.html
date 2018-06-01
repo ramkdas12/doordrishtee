@@ -3,6 +3,9 @@
     <img src='./../../assets/images/loading.gif'>
   </div>
   <div class="overlay" *ngIf='showSpinner'></div>
+  <div class="serviceError" *ngIf='serviceError'>
+    No data Available
+  </div>
   <div *ngIf='!showSpinner'>
     <div class="topProject">
       <h2>Top Project</h2>

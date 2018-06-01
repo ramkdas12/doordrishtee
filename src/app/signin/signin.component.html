@@ -1,0 +1,48 @@
+<header>
+  <h2>{{title}}</h2>
+</header>
+<section>
+  <div class="spinner" *ngIf='showSpinner'>
+    <img src='./../../assets/images/loading.gif'>
+  </div>
+  <div class="overlay" *ngIf='showSpinner'></div>
+  <div class="serviceError" *ngIf='serviceError'>
+    Unable to Login. Please try again.
+  </div>
+  <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+    <nz-form-item>
+      <nz-form-control>
+        <nz-input-group nzPrefixIcon="anticon anticon-user">
+          <input type="email" nz-input formControlName="email" placeholder="Email">
+        </nz-input-group>
+        <nz-form-explain>
+          <span *ngIf="validateForm.get('email').errors && validateForm.get('email').dirty && validateForm.get('email').errors.required">
+            Please enter your email!
+          </span>
+          <span *ngIf="validateForm.get('email').errors && validateForm.get('email').dirty && validateForm.get('email').errors.pattern && !validateForm.get('email').errors.required">
+            Please enter valid email!
+          </span>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <nz-input-group nzPrefixIcon="anticon anticon-lock">
+          <input type="password" nz-input formControlName="password" placeholder="Password">
+        </nz-input-group>
+        <nz-form-explain *ngIf="validateForm.get('password').dirty && validateForm.get('password').errors">Please enter your Password!</nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <label nz-checkbox formControlName="remember">
+          <span>Remember me</span>
+        </label>
+        <a class="login-form-forgot" class="login-form-forgot">Forgot password</a>
+        <button nz-button class="login-form-button" [nzType]="'primary'">Log in</button>
+        Or
+        <a routerLink="/register">register now!</a>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</section>
