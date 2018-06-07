@@ -7,6 +7,8 @@ const request = require('request');
 
 const CryptoJS = require("crypto-js");
 
+const crypto = require('crypto');
+
 //to generate random no;
 const randNo = require('random-number');
 var gen = randNo.generator({
@@ -45,15 +47,46 @@ function verifyCaptcha(captcha, ip) {
   return new Promise(function (resolve, reject) {
     request(verifyUrl, (err, response, body) => {
       body = JSON.parse(body);
-      console.log(body);
       if (body.success !== undefined && !body.success) {
-        console.log('successs' + body.success);
         resolve(false);
       } else {
         resolve(true);
       }
     });
   });
+}
+
+var genRandomString = function (length) {
+  return crypto.randomBytes(Math.ceil(length / 2))
+    .toString('hex') /** convert to hexadecimal format */
+    .slice(0, length);   /** return required number of characters */
+}
+
+var sha256 = function (password, salt) {
+  var hash = crypto.createHmac('sha256', salt); /** Hashing algorithm sha256 */
+  hash.update(password);
+  var value = hash.digest('hex');
+  return {
+    salt: salt,
+    passwordHash: value
+  };
+};
+
+function saltHashPassword(userpassword) {
+  var salt = genRandomString(16); /** Gives us salt of length 16 */
+  var passwordData = sha256(userpassword, salt);
+  return passwordData;
+}
+
+function validatePassword(passObject, pass) {
+  var salt = passObject['salt'];
+  var hash = passObject['passwordHash'];
+  var temp = sha256(pass, salt);
+  if (temp['passwordHash'] == hash) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 function insertRecord(record) {
@@ -63,13 +96,9 @@ function insertRecord(record) {
       dbName.collection('users')
         .insertOne(record)
         .then(success => {
-          console.log("dbInsert success");
-          console.log(success);
           resolve(true);
         })
         .catch((err) => {
-          console.log("dbInsert Fail");
-          console.log(err);
           reject(false);
         });
     });
@@ -107,6 +136,28 @@ function searchField(key, value) {
   });
 }
 
+function searchUser(key, value) {
+  return new Promise(function (resolve, reject) {
+    connection((db) => {
+      const dbName = db.db('doordrishtee');
+      let selector = { [key]: value };
+      dbName.collection('users')
+        .find(selector)
+        .toArray()
+        .then((fields) => {
+          if (fields.length > 0) {
+            resolve(fields);
+          } else {
+            reject(false);
+          }
+        })
+        .catch((err) => {
+          reject(false);
+        });
+    });
+  });
+}
+
 //Get users
 router.get('/users', (req, res) => {
   connection((db) => {
@@ -115,7 +166,6 @@ router.get('/users', (req, res) => {
       .find()
       .toArray()
       .then((users) => {
-        console.log(users);
         response.data = users;
         res.json(response);
       })
@@ -171,8 +221,9 @@ router.post('/signup', (req, res) => {
   let formData = req.body.data;
 
   formData['password'] = decryptPass(formData['password'], formData['checkPassword']);
+  formData['email'] = formData['email'].toLowerCase();
 
-  console.log(formData);
+  formData['password'] = saltHashPassword(formData['password']);
 
   if (formData['captcha']) {
     verifyCaptcha(formData['captcha'], req.connection.remoteAddress)
@@ -205,6 +256,39 @@ router.post('/signup', (req, res) => {
     res.json(response);
   }
 
+});
+
+router.post('/signin', (req, res) => {
+  response.data = true;
+  let formData = req.body.data;
+  formData['password'] = decryptPass(formData['password'], formData['checkPassword']);
+  let searchEmail = formData['email'].toLowerCase();
+  searchUser('email', searchEmail)
+    .then(success => {
+      if (success) {
+        if (validatePassword(success[0]['password'], formData['password'])) {
+          response.data = null;
+          response.message = 'Verified Successfully';
+          response.status = 200;
+          res.status(200).json(response);
+        } else {
+          response.data = null;
+          response.message = 'Invalid User or Password';
+          response.status = 401;
+          res.status(401).json(response);
+        }
+      } else { 
+        response.data = null;
+        response.message = 'Invalid User or Password';
+        response.status = 401;
+        res.status(401).json(response);
+      }
+    }, error => {
+      response.data = null;
+      response.message = 'User Not Found';
+      response.status = 401;
+      res.status(401).json(response);
+    });
 });
 
 module.exports = router;
