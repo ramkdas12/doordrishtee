@@ -1,0 +1,20 @@
+{
+  "name": "doordrishtee",
+  "description": "",
+  "main": "",
+  "authors": [
+    "ramkdas12 <ramkdas12@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/ramkdas12/doordrishtee",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "crypto-js": "^3.1.9"
+  }
+}

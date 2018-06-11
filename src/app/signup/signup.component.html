@@ -15,7 +15,12 @@
         <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email">E-mail</nz-form-label>
         <nz-form-control [nzSm]="14" [nzXs]="24">
           <input nz-input formControlName="email" id="email">
-          <nz-form-explain *ngIf="validateForm.get('email').dirty && validateForm.get('email').errors">The input is not valid E-mail!</nz-form-explain>
+          <nz-form-explain *ngIf="validateForm.get('email').dirty && validateForm.get('email').errors && !validateForm.get('email').hasError('emailTaken')">
+            The input is not valid E-mail!
+          </nz-form-explain>
+          <nz-form-explain *ngIf="validateForm.get('email').dirty && validateForm.get('email').errors && validateForm.get('email').hasError('emailTaken')">
+            Email is already registered to a user!
+          </nz-form-explain>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
@@ -40,17 +45,22 @@
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="nickname" nzRequired>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="alias" nzRequired>
           <span>
-            Nickname
+            Alias
             <nz-tooltip nzTitle="What do you want other to call you">
               <i nz-tooltip class="anticon anticon-question-circle-o"></i>
             </nz-tooltip>
           </span>
         </nz-form-label>
         <nz-form-control [nzSm]="14" [nzXs]="24">
-          <input nz-input id="nickname" formControlName="nickname">
-          <nz-form-explain *ngIf="validateForm.get('nickname').dirty && validateForm.get('nickname').errors">Please input your nickname!</nz-form-explain>
+          <input nz-input id="alias" formControlName="alias">
+          <nz-form-explain *ngIf="validateForm.get('alias').dirty && validateForm.get('alias').errors && !validateForm.get('alias').hasError('aliasTaken')">
+            Please input an alias
+          </nz-form-explain>
+          <nz-form-explain *ngIf="validateForm.get('alias').dirty && validateForm.get('alias').errors && validateForm.get('alias').hasError('aliasTaken')">
+            Alias is already taken!
+          </nz-form-explain>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
@@ -58,14 +68,12 @@
         <nz-form-control [nzSm]="14" [nzXs]="24">
           <div nz-row [nzGutter]="8">
             <div nz-col [nzSpan]="12">
-              <input nz-input formControlName="captcha" id="captcha">
-            </div>
-            <div nz-col [nzSpan]="12">
-              <button nz-button (click)="getCaptcha($event)">Get captcha</button>
+              <div class="g-recaptcha" data-sitekey="6LdkSV0UAAAAACju4xGi7qXUZGowxHxz5zWWFuwN"></div>
             </div>
           </div>
-          <nz-form-explain *ngIf="validateForm.get('captcha').dirty && validateForm.get('captcha').errors">Please input the captcha you got!</nz-form-explain>
-          <nz-form-extra>We must make sure that your are a human.</nz-form-extra>
+          <div nz-row [nzGutter]="8" *ngIf="showError" style="color: red">
+            Please verify the captcha
+          </div>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item nz-row style="margin-bottom:8px;">
