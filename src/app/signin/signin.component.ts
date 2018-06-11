@@ -30,37 +30,16 @@ export class SigninComponent implements OnInit {
       this.validateForm.controls[i].updateValueAndValidity();
     }
     console.log(this.validateForm); 
-    if (this.validateForm.status.toUpperCase() !== 'INVALID') {
-      console.log(this.validateForm.value);
+    if (this.validateForm.status.toUpperCase() === 'VALID') {
       this.validateForm.disable({ onlySelf: true });
       this.showSpinner = true;
       this._dataService.postData('connectionTest', "")
         .subscribe(success => {
-          let test = this.validateForm.value.password.split('');
-          console.log(success);
-          let testing = success['data'].split('');
-          var testLength = test.length + testing.length;
-          var pass = [];
-          for (let i = 0, j = 0, k = 0; i < testLength; i++) {
-            if ( i % 2 ) {
-              if (j < test.length) {
-                pass.push(test[j]);
-              } else {
-                pass.push('');
-              }
-              j++;
-            } else {
-              if (k < testing.length) {
-                pass.push(testing[k]);
-              } else {
-                pass.push('');
-              }
-              k++;
-            }
-          }
-          this.validateForm.value.password = pass.join('');
+          var CryptoJS = window['CryptoJS'];
+          var encrypted = CryptoJS.AES.encrypt(this.validateForm.value.password, success['data']);
+          this.validateForm.value.password = encrypted.toString();
           this.validateForm.value.checkPassword = success['data'];
-          this._dataService.postData('signup', this.validateForm.value)
+          this._dataService.postData('signin', this.validateForm.value)
             .subscribe(success => {
               if (success['status'] === 200) {
 

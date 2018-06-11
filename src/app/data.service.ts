@@ -41,7 +41,10 @@ export class DataService {
 
   postData(url, data) {
     var uri = this.prepareUrl(url, false);
-    return this._http.post(uri, data, this.options)
+    let payload = {
+      data: data
+    };
+    return this._http.post(uri, payload, this.options)
       .map(response => this.result = response);
   }
 

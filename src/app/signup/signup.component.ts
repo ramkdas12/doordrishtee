@@ -9,6 +9,7 @@ import {
   Validators,
   FormControl
 } from '@angular/forms';
+import { error } from 'util';
 
 @Component({
   selector: 'app-signup',
@@ -25,6 +26,10 @@ export class SignupComponent implements OnInit {
 
   showSpinner = false;
 
+  showError = false;
+
+  grecaptcha = window['grecaptcha'];
+
   updateConfirmValidator(): void {
     /** wait for refresh value */
     Promise.resolve().then(() => this.validateForm.controls.checkPassword.updateValueAndValidity());
@@ -35,39 +40,26 @@ export class SignupComponent implements OnInit {
   }
 
   submitForm(): void {
-    for (const i in this.validateForm.controls) {
-      this.validateForm.controls[i].markAsDirty();
-      this.validateForm.controls[i].updateValueAndValidity();
+    
+    var test = this.grecaptcha.getResponse();
+    console.log(this.validateForm);
+    this.validateForm.value.captcha = test;
+    if (!this.validateForm.value.captcha)  {
+      this.showError = true;
+      return;   
+    } else {
+      this.showError = false;
     }
-    if (this.validateForm.status.toUpperCase() !== 'INVALID') {
+    if (this.validateForm.status.toUpperCase() === 'VALID') {
       this.validateForm.disable({ onlySelf: true });
       this.showSpinner = true;
       this._dataService.postData('connectionTest', "")
         .subscribe(success => {
-          let test = this.validateForm.value.password.split('');
-          console.log(success);
-          let testing = success['data'].split('');
-          var testLength = test.length + testing.length;
-          var pass = [];
-          for (let i = 0, j = 0, k = 0; i < testLength; i++) {
-            if ( i % 2 ) {
-              if (j < test.length) {
-                pass.push(test[j]);
-              } else {
-                pass.push('');
-              }
-              j++;
-            } else {
-              if (k < testing.length) {
-                pass.push(testing[k]);
-              } else {
-                pass.push('');
-              }
-              k++;
-            }
-          }
-          this.validateForm.value.password = pass.join('');
+          var CryptoJS = window['CryptoJS'];
+          var encrypted = CryptoJS.AES.encrypt(this.validateForm.value.password, success['data']);
+          this.validateForm.value.password = encrypted.toString();
           this.validateForm.value.checkPassword = success['data'];
+          this.validateForm.value.captcha = test;
           this._dataService.postData('signup', this.validateForm.value)
             .subscribe(success => {
               if (success['status'] === 200) {
@@ -107,12 +99,25 @@ export class SignupComponent implements OnInit {
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      email: [null, [Validators.email]],
+      email: [null, { validators: Validators.required, asyncValidators: [this.validateEmailNotTaken.bind(this)], updateOnBlur: true }],
       password: [null, [Validators.required]],
       checkPassword: [null, [Validators.required, this.confirmationValidator]],
-      nickname: [null, [Validators.required]],
-      captcha: [null, [Validators.required]],
+      alias: [null, { validators: Validators.required, asyncValidators: [this.validateAliasNotTaken.bind(this)], updateOnBlur: true }],
       agree: [false]
+    });
+  }
+
+  validateEmailNotTaken(control: AbstractControl) {
+    return this._dataService.postData('checkEmail', control.value).map(res => {
+      console.log(res);
+      return res['data'] ? { emailTaken: true } : null;
+    });
+  }
+
+  validateAliasNotTaken(control: AbstractControl) {
+    return this._dataService.postData('checkAlias', control.value).map(res => {
+      console.log(res);
+      return res['data'] ? { aliasTaken: true } : null;
     });
   }
 
