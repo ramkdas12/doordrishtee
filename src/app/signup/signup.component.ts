@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { DataService } from './../data.service';
 
+import {Router} from "@angular/router";
+
 import {
   AbstractControl,
   FormBuilder,
@@ -40,13 +42,13 @@ export class SignupComponent implements OnInit {
   }
 
   submitForm(): void {
-    
+
     var test = this.grecaptcha.getResponse();
     console.log(this.validateForm);
     this.validateForm.value.captcha = test;
-    if (!this.validateForm.value.captcha)  {
+    if (!this.validateForm.value.captcha) {
       this.showError = true;
-      return;   
+      return;
     } else {
       this.showError = false;
     }
@@ -63,7 +65,7 @@ export class SignupComponent implements OnInit {
           this._dataService.postData('signup', this.validateForm.value)
             .subscribe(success => {
               if (success['status'] === 200) {
-
+                this.router.navigate(['home']);
               } else {
 
               }
@@ -86,7 +88,7 @@ export class SignupComponent implements OnInit {
     }
   }
 
-  constructor(private fb: FormBuilder, private _dataService: DataService) {
+  constructor(private fb: FormBuilder, private _dataService: DataService, private router: Router) {
   }
 
   confirmationValidator = (control: FormControl): { [s: string]: boolean } => {
@@ -98,6 +100,9 @@ export class SignupComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.grecaptcha.render('reCaptcha', {
+      'sitekey': '6LdkSV0UAAAAACju4xGi7qXUZGowxHxz5zWWFuwN'
+    });
     this.validateForm = this.fb.group({
       email: [null, { validators: Validators.required, asyncValidators: [this.validateEmailNotTaken.bind(this)], updateOnBlur: true }],
       password: [null, [Validators.required]],
