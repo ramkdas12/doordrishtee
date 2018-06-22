@@ -40,13 +40,13 @@ export class SignupComponent implements OnInit {
   }
 
   submitForm(): void {
-    
+
     var test = this.grecaptcha.getResponse();
     console.log(this.validateForm);
     this.validateForm.value.captcha = test;
-    if (!this.validateForm.value.captcha)  {
+    if (!this.validateForm.value.captcha) {
       this.showError = true;
-      return;   
+      return;
     } else {
       this.showError = false;
     }
@@ -98,6 +98,9 @@ export class SignupComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.grecaptcha.render('reCaptcha', {
+      'sitekey': '6LdkSV0UAAAAACju4xGi7qXUZGowxHxz5zWWFuwN'
+    });
     this.validateForm = this.fb.group({
       email: [null, { validators: Validators.required, asyncValidators: [this.validateEmailNotTaken.bind(this)], updateOnBlur: true }],
       password: [null, [Validators.required]],
