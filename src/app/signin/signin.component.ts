@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { DataService } from './../data.service';
 
+import {Router} from "@angular/router";
+
 import {
   AbstractControl,
   FormBuilder,
@@ -42,7 +44,7 @@ export class SigninComponent implements OnInit {
           this._dataService.postData('signin', this.validateForm.value)
             .subscribe(success => {
               if (success['status'] === 200) {
-
+                this.router.navigate(['home']);
               } else {
 
               }
@@ -65,7 +67,7 @@ export class SigninComponent implements OnInit {
     }
   }
 
-  constructor(private fb: FormBuilder, private _dataService: DataService) {
+  constructor(private fb: FormBuilder, private _dataService: DataService, private router: Router) {
   }
 
   ngOnInit(): void {

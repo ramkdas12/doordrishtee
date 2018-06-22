@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { DataService } from './../data.service';
 
+import {Router} from "@angular/router";
+
 import {
   AbstractControl,
   FormBuilder,
@@ -63,7 +65,7 @@ export class SignupComponent implements OnInit {
           this._dataService.postData('signup', this.validateForm.value)
             .subscribe(success => {
               if (success['status'] === 200) {
-
+                this.router.navigate(['home']);
               } else {
 
               }
@@ -86,7 +88,7 @@ export class SignupComponent implements OnInit {
     }
   }
 
-  constructor(private fb: FormBuilder, private _dataService: DataService) {
+  constructor(private fb: FormBuilder, private _dataService: DataService, private router: Router) {
   }
 
   confirmationValidator = (control: FormControl): { [s: string]: boolean } => {
